@@ -294,14 +294,28 @@ var handleInputUserInfo = function (luisResult){
   }
 }
 
+var http = require('http');
 
+var server = http.createServer(function(request, response) {
 
-const app = express();
-const linebotParser = bot.parser();
-app.post('/', linebotParser);
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.end("Hello World!");
 
-//因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
-var server = app.listen(process.env.PORT || 8080, function() {
-  var port = server.address().port;
-  console.log("App now running on port", port);
 });
+
+var port = process.env.PORT || 80;
+server.listen(port);
+
+console.log("Server running at http://localhost:%d", port);
+
+// var port = process.env.PORT || 1337;
+// server.listen(port);
+// const app = express();
+// const linebotParser = bot.parser();
+// app.post('/', linebotParser);
+
+// //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
+// var server = app.listen(process.env.PORT || 8080, function() {
+//   var port = server.address().port;
+//   console.log("App now running on port", port);
+// });
