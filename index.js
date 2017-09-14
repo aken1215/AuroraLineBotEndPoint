@@ -1,7 +1,7 @@
 var linebot = require('linebot');
 var express = require('express');
 var https = require('https');
-var auroraLineBot = require('./api/AuroraLineBot');
+//var auroraLineBot = require('./api/AuroraLineBot');
 //var luisService = require('./api/luis');
 var currentEvent ;
 
