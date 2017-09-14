@@ -130,10 +130,16 @@ bot.on('message', function(event) {
                 });
                 break;
               case 4:
+                    var imageUrl = 'https://auroralinebot.azurewebsites.net/api/Image/'+ event.source.userId;
                     replymsg = 
                       [{
                         'type':'text',
                         'text':'趕快跟工作人員領取禮物唷'
+                      },
+                      {
+                        'type':'image',
+                        'originalContentUrl':imageUrl,
+                        'previewImageUrl':imageUrl
                       }] ;
                 break;
               case 5:
