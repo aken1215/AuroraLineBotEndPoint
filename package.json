@@ -4,8 +4,9 @@
   "description": "linechat",
   "main": "index.js",
   "scripts": {
-    "start": "node ."
-  },
+    "start": "node helloWorld.js"
+  }
+  ,
   "author": "Hank Chen",
   "license": "ISC",
   "dependencies": {
