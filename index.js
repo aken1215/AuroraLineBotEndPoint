@@ -15,13 +15,20 @@ var bot = linebot({
      channelAccessToken: "bKUNGIxsMvf6tZbGi0W/+ThpuPxXnLqsawb7Y7P1dhzArvFCWS+jnyVCmkuBKrO0uRdhMI+A+1Y8c3ojzc+1/8JWof0grGGxbCQ5JUb1s2RobAAsDOtoQ5AcpoqTdQyM6TrM58kPwhLukdWAEi/zewdB04t89/1O/w1cDnyilFU="
    });
    
-   bot.on('follow',function (event){
-    console.log('test');
+
+
+
+bot.on('follow',function (event){
+  var replymsg = 
+  [{
+    'type':'text',
+    'text':'歡迎您今天來到 【震旦X自造未來】\n 的STEAM狂想曲展區􀄃􀈘happy laugh􏿿\n接下來只要您回答4個問題，並出示\n成功畫面，就可以兌換精美繪本手札一份! 􀼂􀆝love journal􏿿\n還有機會抽中「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿\n您準備好了的話~\n請輸入 "GO"唷 !!􀄃􀉏two hearts􏿿'
+  }] ;
+  event.reply(replymsg);
 });
 
 
 bot.on('message', function(event) {
-
   if (event.message.type == 'text') {
 
     console.log(event.source.userId);
