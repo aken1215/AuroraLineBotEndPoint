@@ -115,6 +115,10 @@ bot.on('message', function(event) {
                         'type':'image',
                         'originalContentUrl':imageUrl,
                         'previewImageUrl':imageUrl
+                      },
+                      {
+                        'type':'text',
+                        'text':'感謝您熱情的參與～記得找到工作人員兌換精美繪本手札哦！\n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，可於群組直接 \n 預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
                       }] ;
                       event.reply(replymsg);
                     }
@@ -140,10 +144,6 @@ bot.on('message', function(event) {
                         'type':'image',
                         'originalContentUrl':imageUrl,
                         'previewImageUrl':imageUrl
-                      },
-                      {
-                        'type':'text',
-                        'text':'感謝您熱情的參與～記得找到工作人員兌換精美繪本手札哦！\n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，可於群組直接 \n 預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
                       }] ;
                 break;
               case 5:
