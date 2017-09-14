@@ -108,7 +108,7 @@ bot.on('message', function(event) {
                       replymsg = 
                       [{
                         'type':'text',
-                        'text':'感謝您完整回答~請出示以下畫面給現場工作人員􀄃􀈢cool􏿿\n 即可對兌換精美繪本手札 􀄃􀉏two hearts􏿿 \n 還有機會抽中 「琉璃知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。􁀁􀆍happy laugh􏿿'
+                        'text':'感謝您完整回答~請出示以下畫面給現場工作人員􀄃􀈢cool􏿿\n 即可對兌換精美繪本手札 􀄃􀉏two hearts􏿿 \n 還有機會抽中 「琉璃知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。􀄃􀈘happy laugh􏿿'
                       }
                         ,
                       {
