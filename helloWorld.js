@@ -10,6 +10,17 @@ var bot = linebot({
      channelAccessToken: "bKUNGIxsMvf6tZbGi0W/+ThpuPxXnLqsawb7Y7P1dhzArvFCWS+jnyVCmkuBKrO0uRdhMI+A+1Y8c3ojzc+1/8JWof0grGGxbCQ5JUb1s2RobAAsDOtoQ5AcpoqTdQyM6TrM58kPwhLukdWAEi/zewdB04t89/1O/w1cDnyilFU="
    });
    
+bot.on('message', function(event) {
+    
+    if (event.message.type == 'text') {
+        var replymsg = 
+        [{
+          'type':'text',
+          'text':event.message.text
+        }] ;
+        event.reply(replymsg);
+    }
+});
 
 
 var server = http.createServer(function(request, response) {
@@ -18,6 +29,10 @@ var server = http.createServer(function(request, response) {
     response.end("Hello World!  my Code");
 
 });
+
+
+const linebotParser = bot.parser();
+server.post('/', linebotParser);
 
 var port = process.env.PORT || 1337;
 server.listen(port);
