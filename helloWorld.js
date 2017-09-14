@@ -31,8 +31,8 @@ var server = http.createServer(function(request, response) {
 });
 
 
-const linebotParser = bot.parser();
-server.post('/', linebotParser);
+//const linebotParser = bot.parser();
+//server.post('/', linebotParser);
 
 var port = process.env.PORT || 1337;
 server.listen(port);
