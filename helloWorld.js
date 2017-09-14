@@ -1,5 +1,6 @@
 var http = require('http');
 var linebot = require('linebot');
+var express = require('express');
 
 var bot = linebot({
     //channelId: "1530245573" ,
@@ -23,18 +24,12 @@ bot.on('message', function(event) {
 });
 
 
-var server = http.createServer(function(request, response) {
+const app = express();
+const linebotParser = bot.parser();
+app.post('/', linebotParser);
 
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!  my Code");
-
+//因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
+var server = app.listen(process.env.PORT || 8080, function() {
+  var port = server.address().port;
+  console.log("App now running on port", port);
 });
-
-
-//const linebotParser = bot.parser();
-//server.post('/', linebotParser);
-
-var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
