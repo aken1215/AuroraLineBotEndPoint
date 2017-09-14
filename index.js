@@ -1,25 +1,19 @@
+var http = require('http');
 var linebot = require('linebot');
 var express = require('express');
-var https = require('https');
-var auroraLineBot = require('./api/AuroraLineBot');
-var luisService = require('./api/luis');
-var currentEvent ;
-//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-
 
 var bot = linebot({
- //channelId: "1530245573" ,
- //channelSecret: "cebc3f2a9f76e985607de7f855794fbe",
- //channelAccessToken: "RQ22Ia0B9nF86lFPdDrVEQiawPOxhC0iBakGupdgPQRSDs9KKlKN56THLEGxJK5J9hozRTJ4bSTusVspBDj3NSSx9jLN5cZWI/8EJbCJjUpk28v3E2VZBlEsgx+L2U8JdmmeIhFhhBqwCoNOWoAUNwdB04t89/1O/w1cDnyilFU="
-  channelId: "1535163663" ,
-  channelSecret: "60e70aa9ae539ac86e4c925b73428afd",
-  channelAccessToken: "bKUNGIxsMvf6tZbGi0W/+ThpuPxXnLqsawb7Y7P1dhzArvFCWS+jnyVCmkuBKrO0uRdhMI+A+1Y8c3ojzc+1/8JWof0grGGxbCQ5JUb1s2RobAAsDOtoQ5AcpoqTdQyM6TrM58kPwhLukdWAEi/zewdB04t89/1O/w1cDnyilFU="
-});
-
-bot.on('follow',function (event){
+    //channelId: "1530245573" ,
+    //channelSecret: "cebc3f2a9f76e985607de7f855794fbe",
+    //channelAccessToken: "RQ22Ia0B9nF86lFPdDrVEQiawPOxhC0iBakGupdgPQRSDs9KKlKN56THLEGxJK5J9hozRTJ4bSTusVspBDj3NSSx9jLN5cZWI/8EJbCJjUpk28v3E2VZBlEsgx+L2U8JdmmeIhFhhBqwCoNOWoAUNwdB04t89/1O/w1cDnyilFU="
+     channelId: "1535163663" ,
+     channelSecret: "60e70aa9ae539ac86e4c925b73428afd",
+     channelAccessToken: "bKUNGIxsMvf6tZbGi0W/+ThpuPxXnLqsawb7Y7P1dhzArvFCWS+jnyVCmkuBKrO0uRdhMI+A+1Y8c3ojzc+1/8JWof0grGGxbCQ5JUb1s2RobAAsDOtoQ5AcpoqTdQyM6TrM58kPwhLukdWAEi/zewdB04t89/1O/w1cDnyilFU="
+   });
+   
+   bot.on('follow',function (event){
     console.log('test');
 });
-
 
 
 bot.on('message', function(event) {
@@ -294,30 +288,12 @@ var handleInputUserInfo = function (luisResult){
   }
 }
 
-var http = require('http');
+const app = express();
+const linebotParser = bot.parser();
+app.post('/', linebotParser);
 
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!");
-
+//因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
+var server = app.listen(process.env.PORT || 8080, function() {
+  var port = server.address().port;
+  console.log("App now running on port", port);
 });
-
-//const linebotParser = bot.parser();
-//server.post('/', linebotParser);
-
-var port = process.env.PORT || 1337;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
-
-// var port = process.env.PORT || 1337;
-// server.listen(port);
-// const app = express();
-
-
-// //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
-// var server = app.listen(process.env.PORT || 8080, function() {
-//   var port = server.address().port;
-//   console.log("App now running on port", port);
-// });
