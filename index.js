@@ -22,7 +22,7 @@ bot.on('follow',function (event){
   var replymsg = 
   [{
     'type':'text',
-    'text':'歡迎您今天來到 【震旦X自造未來】\n 的STEAM狂想曲展區􀄃􀈘happy laugh􏿿\n接下來只要您回答4個問題，並出示\n成功畫面，就可以兌換精美繪本手札一份! 􀼂􀆝love journal􏿿\n還有機會抽中「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿\n您準備好了的話~\n請輸入 "GO"唷 !!􀄃􀉏two hearts􏿿'
+    'text':'歡迎您今天來到 【震旦X自造未來】\n 的STEAM狂想曲展區􀄃􀈘happy laugh􏿿\n接下來只要您回答4個問題，\n並出示成功畫面(QR Code)，就可以兌換精美繪本手札一份!(只限今天) 􀼂􀆝love journal􏿿\n 還有機會抽中「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿\n您準備好了的話~\n請輸入 "GO"唷 !!􀄃􀉏two hearts􏿿'
   }] ;
   event.reply(replymsg);
 });
@@ -46,14 +46,9 @@ bot.on('message', function(event) {
       
       var type = parseInt(result);
 
-      if(msg.toUpperCase() == "GO" ){
+      if(type == -1){
         replymsg = 
         [
-          {
-            'type':'text',
-            'text':'活動DM可參考下方唷'
-          }  
-          ,
           {
             'type':'image',
             'originalContentUrl':'https://auappstore.azureedge.net/appstore/0927image.jpg',
@@ -62,7 +57,7 @@ bot.on('message', function(event) {
           ,
           {
           'type':'text',
-          'text':'讓我們多認識您一些吧\n 1.請問您的姓名?'
+          'text':'讓我們多認識您一些吧\n 1.請問您的大名?'
           }
        ] ;
 
@@ -73,13 +68,13 @@ bot.on('message', function(event) {
             case 0:
                 data.Name = msg;
                 auroraLineBot.UpdateLineUserInfo(data);
-                replymsg[0].text="2.請問您的電話?";
+                replymsg[0].text="2.請問您的電話? (行動或市話)";
                 break;
             case 1:
                 data.Mobile = msg;
                 auroraLineBot.UpdateLineUserInfo(data).then(result =>{
                   if(result.statusCode == 200){
-                    replymsg[0].text="3.就快好嚕~ 請問您的服務單位?";
+                    replymsg[0].text="3.就快完成嚕~ 請問您的服務單位(學校/機構名稱)?";
                     event.reply(replymsg);
                   }
                   else{
@@ -97,7 +92,7 @@ bot.on('message', function(event) {
             case 2:
                 data.ServiceDPT = msg;
                 auroraLineBot.UpdateLineUserInfo(data);
-                replymsg[0].text="4.到最後了~請問您的E-mail?";
+                replymsg[0].text="4.最後一步了!!請問您的E-mail?";
                 break;
             case 3:
                 data.EMAIL = msg;
@@ -108,17 +103,13 @@ bot.on('message', function(event) {
                       replymsg = 
                       [{
                         'type':'text',
-                        'text':'感謝您完整回答~請出示以下畫面給現場工作人員􀄃􀈢cool􏿿\n 即可對兌換精美繪本手札 􀄃􀉏two hearts􏿿 \n 還有機會抽中 「琉璃知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。􀄃􀈘happy laugh􏿿'
+                        'text':'感謝您完整回答~請出示以下QR Code畫面給現場工作人員􀄃􀈢cool􏿿\n 即可兌換精美繪本手札一份(限今天兌換，數量有限，送完為止) 􀄃􀉏two hearts􏿿 \n 還有機會抽中 「琉璃知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。􀄃􀈘happy laugh􏿿'
                       }
                         ,
                       {
                         'type':'image',
                         'originalContentUrl':imageUrl,
                         'previewImageUrl':imageUrl
-                      },
-                      {
-                        'type':'text',
-                        'text':'感謝您熱情的參與～記得找到工作人員兌換精美繪本手札哦！\n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，可於群組直接 \n 預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
                       }] ;
                       event.reply(replymsg);
                     }
@@ -150,13 +141,10 @@ bot.on('message', function(event) {
                     replymsg = 
                     [{
                       'type':'text',
-                      'text':'感謝您熱情的參與～記得找到工作人員兌換精美繪本手札哦！\n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，可於群組直接 \n 預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
+                      'text':'感謝您熱情的參與【震旦X 3D自造未來】的活動～ \n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，請至https://goo.gl/7oZYAi直接預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
                     }] ;
                 break;
           } 
-        }
-        else{
-          replymsg[0].text="準備好了~請輸入go 讓我知道唷";
         }
         
       event.reply(replymsg);
