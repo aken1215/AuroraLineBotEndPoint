@@ -51,8 +51,8 @@ bot.on('message', function(event) {
         [
           {
             'type':'image',
-            'originalContentUrl':'https://auappstore.azureedge.net/appstore/0927image.jpg',
-            'previewImageUrl':'https://auappstore.azureedge.net/appstore/0927image.jpg'
+            'originalContentUrl':'https://aublob.blob.core.windows.net/appstore/0927image.jpg',
+            'previewImageUrl':'https://aublob.blob.core.windows.net/appstore/0927image.jpg'
           }
           ,
           {
