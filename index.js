@@ -31,128 +31,17 @@ bot.on('follow', function (event) {
 bot.on('message', function (event) {
   if (event.message.type == 'text') {
 
-    console.log(event.source.userId);
-    var msg = event.message.text;
-    auroraLineBot.GetUserStatus(event.source.userId).then(result => {
-      var data = {
-        'LineID': event.source.userId
-      }
-
-      var replymsg =
-        [{
-          'type': 'text',
-          'text': ''
-        }];
-
-      var type = parseInt(result);
-
-      if (type == -1) {
-        replymsg =
-          [
-            {
-              'type': 'text',
-              'text': '「活動DM請參考下圖~」'
-            },
-            {
-              'type': 'image',
-              'originalContentUrl': 'https://aublob.blob.core.windows.net/appstore/0927image.jpg',
-              'previewImageUrl': 'https://aublob.blob.core.windows.net/appstore/0927image.jpg'
-            }
-            ,
-            {
-              'type': 'text',
-              'text': '讓我們多認識您一些吧\n 1.請問您的大名?'
-            }
-          ];
-
-        auroraLineBot.CreateLineUserInfo(data);
-      }
-      else if (type > -1) {
-        switch (type) {
-          case 0:
-            data.Name = msg;
-            auroraLineBot.UpdateLineUserInfo(data);
-            replymsg[0].text = "2.請問您的電話? (行動或市話 / 範例格式：0912345678或0223458088)";
-            break;
-          case 1:
-            data.Mobile = msg;
-            auroraLineBot.UpdateLineUserInfo(data).then(result => {
-              if (result.statusCode == 200) {
-                replymsg[0].text = "3.就快完成嚕~ 請問您的服務單位(學校/機構名稱)?";
-                event.reply(replymsg);
-              }
-              else {
-                var response = JSON.parse(result.body.replace("model.", "")).ModelState.mobile[0];
-                console.log(response);
-                replymsg =
-                  [{
-                    'type': 'text',
-                    'text': response
-                  }];
-                event.reply(replymsg);
-              }
-            });
-            break;
-          case 2:
-            data.ServiceDPT = msg;
-            auroraLineBot.UpdateLineUserInfo(data);
-            replymsg[0].text = "4.最後一步了!!請問您的E-mail?";
-            break;
-          case 3:
-            data.EMAIL = msg;
-            auroraLineBot.UpdateLineUserInfo(data).then(result => {
-              var imageUrl = 'https://auroralinebot.azurewebsites.net/api/Image/' + event.source.userId;
-
-              if (result.statusCode == 200) {
-                replymsg =
-                  [{
-                    'type': 'text',
-                    'text': '感謝您完整回答~請出示以下QR Code畫面給現場工作人員􀄃􀈢cool􏿿\n 即可兌換精美繪本手札一份(限今天兌換，數量有限，送完為止)\n 還有機會抽中 「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。'
-                  }
-                    ,
-                  {
-                    'type': 'image',
-                    'originalContentUrl': imageUrl,
-                    'previewImageUrl': imageUrl
-                  }];
-                event.reply(replymsg);
-              }
-              else {
-                var response = JSON.parse(result.body.replace("model.", "")).ModelState.EMail[0];
-                replymsg =
-                  [{
-                    'type': 'text',
-                    'text': response
-                  }];
-                event.reply(replymsg);
-              }
-            });
-            break;
-          case 4:
-            var imageUrl = 'https://auroralinebot.azurewebsites.net/api/Image/' + event.source.userId;
-            replymsg =
-              [{
-                'type': 'text',
-                'text': '趕快跟工作人員領取禮物唷'
-              },
-              {
-                'type': 'image',
-                'originalContentUrl': imageUrl,
-                'previewImageUrl': imageUrl
-              }];
-            break;
-          case 5:
-            replymsg =
-              [{
-                'type': 'text',
-                'text': '感謝您熱情的參與【震旦X 3D自造未來】的活動～ \n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，請至 https://goo.gl/7oZYAi 直接預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
-              }];
-            break;
-        }
-      }
-
-      event.reply(replymsg);
-    });
+    var data = {
+      'LineID' : event.source.userId,
+      'Content':event.message.text
+    }
+    auroraLineBot.PostConversation(data);
+    var replymsg =
+      [{
+        'type': 'text',
+        'text': '感謝您熱情的參與【震旦X 3D自造未來】的活動～ \n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，請至 https://goo.gl/7oZYAi 直接預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
+      }];
+    event.reply(replymsg);
   }
 });
 
@@ -297,6 +186,132 @@ var handleInputUserInfo = function (luisResult) {
       .then(existed => afterGetUserInfoHandler(userInfo, existed));
     sendQRCodeMessage(userInfo);
   }
+}
+
+var Activity0927 = function (event) {
+
+  console.log(event.source.userId);
+  var msg = event.message.text;
+  auroraLineBot.GetUserStatus(event.source.userId).then(result => {
+    var data = {
+      'LineID': event.source.userId
+    }
+
+    var replymsg =
+      [{
+        'type': 'text',
+        'text': ''
+      }];
+
+    var type = parseInt(result);
+
+    if (type == -1) {
+      replymsg =
+        [
+          {
+            'type': 'text',
+            'text': '「活動DM請參考下圖~」'
+          },
+          {
+            'type': 'image',
+            'originalContentUrl': 'https://aublob.blob.core.windows.net/appstore/0927image.jpg',
+            'previewImageUrl': 'https://aublob.blob.core.windows.net/appstore/0927image.jpg'
+          }
+          ,
+          {
+            'type': 'text',
+            'text': '讓我們多認識您一些吧\n 1.請問您的大名?'
+          }
+        ];
+
+      auroraLineBot.CreateLineUserInfo(data);
+    }
+    else if (type > -1) {
+      switch (type) {
+        case 0:
+          data.Name = msg;
+          auroraLineBot.UpdateLineUserInfo(data);
+          replymsg[0].text = "2.請問您的電話? (行動或市話 / 範例格式：0912345678或0223458088)";
+          break;
+        case 1:
+          data.Mobile = msg;
+          auroraLineBot.UpdateLineUserInfo(data).then(result => {
+            if (result.statusCode == 200) {
+              replymsg[0].text = "3.就快完成嚕~ 請問您的服務單位(學校/機構名稱)?";
+              event.reply(replymsg);
+            }
+            else {
+              var response = JSON.parse(result.body.replace("model.", "")).ModelState.mobile[0];
+              console.log(response);
+              replymsg =
+                [{
+                  'type': 'text',
+                  'text': response
+                }];
+              event.reply(replymsg);
+            }
+          });
+          break;
+        case 2:
+          data.ServiceDPT = msg;
+          auroraLineBot.UpdateLineUserInfo(data);
+          replymsg[0].text = "4.最後一步了!!請問您的E-mail?";
+          break;
+        case 3:
+          data.EMAIL = msg;
+          auroraLineBot.UpdateLineUserInfo(data).then(result => {
+            var imageUrl = 'https://auroralinebot.azurewebsites.net/api/Image/' + event.source.userId;
+
+            if (result.statusCode == 200) {
+              replymsg =
+                [{
+                  'type': 'text',
+                  'text': '感謝您完整回答~請出示以下QR Code畫面給現場工作人員􀄃􀈢cool􏿿\n 即可兌換精美繪本手札一份(限今天兌換，數量有限，送完為止)\n 還有機會抽中 「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿 \n 大獎將於10/6(五)以E-mail和電話通知幸運得主􁄁􀄕Pink Cellphone􏿿 \n *只要填寫姓名、電話、mail、服務單位四項完整資料即可參加抽獎，抽獎結果將以mail和電話方式通知獲獎者，並公告於震旦集團網站(www.aurora.com.tw)，為保護您的權利，請留下正確資料，以利後續通知。\n *震旦集團保留更換贈品之權利。'
+                }
+                  ,
+                {
+                  'type': 'image',
+                  'originalContentUrl': imageUrl,
+                  'previewImageUrl': imageUrl
+                }];
+              event.reply(replymsg);
+            }
+            else {
+              var response = JSON.parse(result.body.replace("model.", "")).ModelState.EMail[0];
+              replymsg =
+                [{
+                  'type': 'text',
+                  'text': response
+                }];
+              event.reply(replymsg);
+            }
+          });
+          break;
+        case 4:
+          var imageUrl = 'https://auroralinebot.azurewebsites.net/api/Image/' + event.source.userId;
+          replymsg =
+            [{
+              'type': 'text',
+              'text': '趕快跟工作人員領取禮物唷'
+            },
+            {
+              'type': 'image',
+              'originalContentUrl': imageUrl,
+              'previewImageUrl': imageUrl
+            }];
+          break;
+        case 5:
+          replymsg =
+            [{
+              'type': 'text',
+              'text': '感謝您熱情的參與【震旦X 3D自造未來】的活動～ \n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，請至 https://goo.gl/7oZYAi 直接預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
+            }];
+          break;
+      }
+    }
+
+    event.reply(replymsg);
+  });
 }
 
 const app = express();

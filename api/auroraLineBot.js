@@ -67,6 +67,10 @@ exports.UpdateLineUserInfo = function (data){
     return baseUrlOperation('/api/auroraLineBot/put','put',data);
 }
 
+exports.PostConversation = function (data){
+  baseUrlOperation('/api/Conversation','post',data);
+}
+
 exports.ExistLineUserInfo = function (data){
     return getContent('http://auroralinebot.azurewebsites.net/api/auroraLineBot/'+ data.LineID);
 }
