@@ -193,7 +193,7 @@ var Activity1018 = function (event) {
         'text': ''
       }];
 
-    var type = parseInt(result);
+    var type = parseInt(result.Status);
 
     if (type == -1) {
       replymsg =
