@@ -194,9 +194,9 @@ var Activity1018 = function (event) {
       }];
     
     var data= JSON.parse(result);
-    var type = parseInt(data.Status);
+    var type = data.Status;
 
-    if (type == -1) {
+    if (type == "-1") {
       replymsg =
         [
           {
@@ -207,15 +207,15 @@ var Activity1018 = function (event) {
 
       auroraLineBot.CreateLineUserInfo(data);
     }
-    else if (type == 0) {
+    else if (type == "填寫姓名") {
       data.Name = msg;
       auroraLineBot.UpdateLineUserInfo(data);
       replymsg[0].text = "請輸入電話(行動或市話 / 範例格式：0912345678或0223458088)";
-    } else if (type == 1) {
+    } else if (type == "填寫電話") {
       data.Mobile = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data);
       replymsg[0].text = "完成囉！您的幸運號碼是:"+result.SNO+" ，議程的最後將由周老師現場抽出1名幸運兒～敬請期待！千萬別錯過";
-    } else if (type == 2) {
+    } else if (type == "完成") {
       replymsg[0].text = "感謝您今日的參與，未來將不定期提供您人資議題相關最新訊息\n 以及價值創新講堂場次，精彩議程千萬別錯過～\n詳情洽https://www.aurora.com.tw/cloud/\n 若有任何問題請撥打客服專線：02-2725-1723";
     }
     event.reply(replymsg);
