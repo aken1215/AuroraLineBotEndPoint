@@ -192,8 +192,9 @@ var Activity1018 = function (event) {
         'type': 'text',
         'text': ''
       }];
-
-    var type = parseInt(result.Status);
+    
+    var data= JSON.parse(result);
+    var type = parseInt(data.Status);
 
     if (type == -1) {
       replymsg =
