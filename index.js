@@ -193,8 +193,8 @@ var Activity1018 = function (event) {
         'text': ''
       }];
     
-    var data= JSON.parse(result);
-    var type = data.Status;
+    var resultObj= JSON.parse(result);
+    var type = resultObj.Status;
 
     if (type == "-1") {
       replymsg =
