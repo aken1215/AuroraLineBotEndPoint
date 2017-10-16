@@ -10,38 +10,28 @@ var bot = linebot({
   //channelId: "1530245573" ,
   //channelSecret: "cebc3f2a9f76e985607de7f855794fbe",
   //channelAccessToken: "RQ22Ia0B9nF86lFPdDrVEQiawPOxhC0iBakGupdgPQRSDs9KKlKN56THLEGxJK5J9hozRTJ4bSTusVspBDj3NSSx9jLN5cZWI/8EJbCJjUpk28v3E2VZBlEsgx+L2U8JdmmeIhFhhBqwCoNOWoAUNwdB04t89/1O/w1cDnyilFU="
-  channelId: "1535163663",
-  channelSecret: "60e70aa9ae539ac86e4c925b73428afd",
-  channelAccessToken: "bKUNGIxsMvf6tZbGi0W/+ThpuPxXnLqsawb7Y7P1dhzArvFCWS+jnyVCmkuBKrO0uRdhMI+A+1Y8c3ojzc+1/8JWof0grGGxbCQ5JUb1s2RobAAsDOtoQ5AcpoqTdQyM6TrM58kPwhLukdWAEi/zewdB04t89/1O/w1cDnyilFU="
+  channelId: "1540967764",
+  channelSecret: "d0219fde451d33a392f0216e92f5a793",
+  channelAccessToken: "bc9AFYG30xbYJdgcTck/DAv7WgRGGJ8e+MP+69ITh6jGcQtevXl/TLkhqm9i+uaaFqYP+5lRpoKWa3qcIjRrJpGWH8cvopUxn5NfG27UNNe67zPJ6no1DqF3tEkufGRhbLy1/RLyX9sVR+KXbCEpEwdB04t89/1O/w1cDnyilFU="
 });
-
-
 
 
 bot.on('follow', function (event) {
   var replymsg =
     [{
       'type': 'text',
-      'text': '歡迎您今天來到 【震旦X自造未來】\n 的STEAM狂想曲展區􀄃􀈘happy laugh􏿿\n接下來只要您回答4個問題，\n並出示成功畫面(QR Code)，就可以兌換精美繪本手札一份!(只限今天) 􀼂􀆝love journal􏿿\n 還有機會抽中「琉璃工房知音報曉茶具組」􁀁􀆍Matcha􏿿\n您準備好了的話~\n請輸入 "GO"唷 !!􀄃􀉏two hearts􏿿'
+      'text': '歡迎參加【價值創新講堂－台中場】活動，今日將由人資專家周昌湘老師教您如何因應勞檢與一例一休變法！議程的最後還有周老師精彩的問答解析，以及抽大獎活動~想獲得\n【ASUS平板】?請輸入"1"'
     }];
   event.reply(replymsg);
 });
 
 
 bot.on('message', function (event) {
+
+
   if (event.message.type == 'text') {
 
-    var data = {
-      'LineID' : event.source.userId,
-      'Content':event.message.text
-    }
-    auroraLineBot.PostConversation(data);
-    var replymsg =
-      [{
-        'type': 'text',
-        'text': '感謝您熱情的參與【震旦X 3D自造未來】的活動～ \n 未來將不定期提供您3D自造教育相關資訊，以及在北、中、 南將有《震旦自造教育工作坊》的精彩課程，請至 https://goo.gl/7oZYAi 直接預約報名！若有任何問題請撥打免費客服專線：0809-068-588 􀄃􀈘happy laugh􏿿 '
-      }];
-    event.reply(replymsg);
+    Activity1018(event);
   }
 });
 
@@ -188,6 +178,49 @@ var handleInputUserInfo = function (luisResult) {
   }
 }
 
+var Activity1018 = function (event) {
+
+  console.log(event.source.userId);
+  var msg = event.message.text;
+  auroraLineBot.GetUserStatus(event.source.userId).then(result => {
+    var data = {
+      'LineID': event.source.userId
+    }
+
+    var replymsg =
+      [{
+        'type': 'text',
+        'text': ''
+      }];
+
+    var type = parseInt(result);
+
+    if (type == -1) {
+      replymsg =
+        [
+          {
+            'type': 'text',
+            'text': '誰是幸運兒？請輸入姓名'
+          }
+        ];
+
+      auroraLineBot.CreateLineUserInfo(data);
+    }
+    else if (type == 0) {
+      data.Name = msg;
+      auroraLineBot.UpdateLineUserInfo(data);
+      replymsg[0].text = "請輸入電話(行動或市話 / 範例格式：0912345678或0223458088)";
+    } else if (type == 1) {
+      data.Mobile = asc(msg);
+      auroraLineBot.UpdateLineUserInfo(data);
+      replymsg[0].text = "完成囉！議程的最後將由周老師現場抽出1名幸運兒～敬請期待！千萬別錯過";
+    } else if (type == 2) {
+      replymsg[0].text = "感謝您今日的參與，未來將不定期提供您人資議題相關最新訊息\n 以及價值創新講堂場次，精彩議程千萬別錯過～\n詳情洽https://www.aurora.com.tw/cloud/\n 若有任何問題請撥打客服專線：02-2725-1723";
+    }
+    event.reply(replymsg);
+  });
+}
+
 var Activity0927 = function (event) {
 
   console.log(event.source.userId);
@@ -312,6 +345,26 @@ var Activity0927 = function (event) {
 
     event.reply(replymsg);
   });
+}
+
+var asc = function (text) {
+
+  var asciiTable = "!\"#$%&\’()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+
+  var big5Table = "%uFF01%u201D%uFF03%uFF04%uFF05%uFF06%u2019%uFF08%uFF09%uFF0A%uFF0B%uFF0C%uFF0D%uFF0E%uFF0F%uFF10%uFF11%uFF12%uFF13%uFF14%uFF15%uFF16%uFF17%uFF18%uFF19%uFF1A%uFF1B%uFF1C%uFF1D%uFF1E%uFF1F%uFF20%uFF21%uFF22%uFF23%uFF24%uFF25%uFF26%uFF27%uFF28%uFF29%uFF2A%uFF2B%uFF2C%uFF2D%uFF2E%uFF2F%uFF30%uFF31%uFF32%uFF33%uFF34%uFF35%uFF36%uFF37%uFF38%uFF39%uFF3A%uFF3B%uFF3C%uFF3D%uFF3E%uFF3F%u2018%uFF41%uFF42%uFF43%uFF44%uFF45%uFF46%uFF47%uFF48%uFF49%uFF4A%uFF4B%uFF4C%uFF4D%uFF4E%uFF4F%uFF50%uFF51%uFF52%uFF53%uFF54%uFF55%uFF56%uFF57%uFF58%uFF59%uFF5A%uFF5B%uFF5C%uFF5D%uFF5E";
+
+  var result = "";
+
+  for (var i = 0; i < text.length; i++) {
+
+    var val = escape(text.charAt(i));
+
+    var j = big5Table.indexOf(val);
+
+    result += (((j > -1) && (val.length == 6)) ? asciiTable.charAt(j / 6) : text.charAt(i));
+
+  }
+  return result;
 }
 
 const app = express();

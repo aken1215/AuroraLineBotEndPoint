@@ -29,7 +29,7 @@ var baseUrlOperation= function (path,method,data){
     var reqBody = JSON.stringify(data);
     var http = require("http");
     var options = {
-      hostname: 'auroralinebot.azurewebsites.net',
+      hostname: 'auroracloudbot.azurewebsites.net',
       port: 80,
       path: path,
       method: method,
@@ -72,16 +72,16 @@ exports.PostConversation = function (data){
 }
 
 exports.ExistLineUserInfo = function (data){
-    return getContent('http://auroralinebot.azurewebsites.net/api/auroraLineBot/'+ data.LineID);
+    return getContent('http://auroracloudbot.azurewebsites.net/api/auroraLineBot/'+ data.LineID);
 }
 
 exports.GetUserStatus = function (userId){
-    return getContent('http://auroralinebot.azurewebsites.net/api/UserStatus/'+ userId);
+    return getContent('http://auroracloudbot.azurewebsites.net/api/UserStatus/'+ userId);
 }
 
 
 exports.EngageRequest = function (id){
-  return getContent('http://auroralinebot.azurewebsites.net/api/EngageRequest/'+ id);
+  return getContent('http://auroracloudbot.azurewebsites.net/api/EngageRequest/'+ id);
 }
 
 
