@@ -28,7 +28,7 @@ bot.on('follow', function (event) {
 
 bot.on('message', function (event) {
 
-
+  currentEvent=event;
   if (event.message.type == 'text') {
     var data = {
       'LineID': event.source.userId,
@@ -217,12 +217,15 @@ var Activity1018 = function (event) {
         ];
 
       auroraLineBot.CreateLineUserInfo(data);
+      event.reply(replymsg);
     }
     else if (type == "填寫姓名") {
       data.Name = msg;
       auroraLineBot.UpdateLineUserInfo(data);
       replymsg[0].text = "請輸入電話(行動或市話 / 範例格式：0912345678或0223458088)";
-    } else if (type == "填寫電話") {
+      event.reply(replymsg);
+    } 
+    else if (type == "填寫電話") {
       data.Mobile = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data).then(result => {
         if (result.statusCode == 200) {
@@ -236,7 +239,7 @@ var Activity1018 = function (event) {
               'text': '想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址􀄃􀉏two hearts􏿿'
             }
             ];
-          event.reply(replymsg);
+            currentEvent.reply(replymsg);
         }
         else {
           var response = JSON.parse(result.body.replace("model.", "")).ModelState.mobile[0];
