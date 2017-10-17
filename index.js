@@ -229,11 +229,11 @@ var Activity1018 = function (event) {
       replymsg =
         [{
           'type': 'text',
-          'text': '完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過'
+          'text': '完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過􀄃􀈘happy laugh􏿿'
         },
         {
           'type': 'text',
-          'text': '想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址'
+          'text': '想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址􀄃􀉏two hearts􏿿'
         }
         ];
     } else if (type == "完成") {
