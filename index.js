@@ -225,7 +225,7 @@ var Activity1018 = function (event) {
     } else if (type == "填寫電話") {
       data.Mobile = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data);
-      replymsg[0].text = "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！\n  \n 千萬別錯過 想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址";
+      replymsg[0].text = "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過 \n \n想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址";
     } else if (type == "完成") {
       data.Address = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data);
