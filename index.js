@@ -229,7 +229,7 @@ var Activity1018 = function (event) {
       replymsg =
         [{
           'type': 'text',
-          'text': '完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過􀄃􀈘happy laugh􏿿'
+          'text': "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過􀄃􀈘happy laugh􏿿"
         },
         {
           'type': 'text',
