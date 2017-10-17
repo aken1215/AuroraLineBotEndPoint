@@ -224,28 +224,41 @@ var Activity1018 = function (event) {
       replymsg[0].text = "請輸入電話(行動或市話 / 範例格式：0912345678或0223458088)";
     } else if (type == "填寫電話") {
       data.Mobile = asc(msg);
-      auroraLineBot.UpdateLineUserInfo(data);
-
-      replymsg =
-        [{
-          'type': 'text',
-          'text': "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過􀄃􀈘happy laugh􏿿"
-        },
-        {
-          'type': 'text',
-          'text': '想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址􀄃􀉏two hearts􏿿'
+      auroraLineBot.UpdateLineUserInfo(data).then(result => {
+        if (result.statusCode == 200) {
+          replymsg =
+            [{
+              'type': 'text',
+              'text': "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由主辦單位現場抽出1名幸運兒～敬請期待！千萬別錯過􀄃􀈘happy laugh􏿿"
+            },
+            {
+              'type': 'text',
+              'text': '想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址􀄃􀉏two hearts􏿿'
+            }
+            ];
+          event.reply(replymsg);
         }
-        ];
+        else {
+          var response = JSON.parse(result.body.replace("model.", "")).ModelState.mobile[0];
+          console.log(response);
+          replymsg =
+            [{
+              'type': 'text',
+              'text': response
+            }];
+          event.reply(replymsg);
+        }
+      });
     } else if (type == "完成") {
       data.Address = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data);
       replymsg[0].text = "感謝您的填寫~從2017年12月起將收到為期一年份的《震旦月刊》";
+      event.reply(replymsg);
     }
     else if (type == "註冊月刊") {
       replymsg[0].text = "";
+      event.reply(replymsg);
     }
-
-    event.reply(replymsg);
   });
 }
 
