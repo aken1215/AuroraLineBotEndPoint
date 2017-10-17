@@ -32,7 +32,7 @@ bot.on('message', function (event) {
   if (event.message.type == 'text') {
     var data = {
       'LineID': event.source.userId,
-      'Content':event.message.text
+      'Content': event.message.text
     }
     auroraLineBot.PostConversation(data);
 
@@ -197,8 +197,8 @@ var Activity1018 = function (event) {
         'type': 'text',
         'text': ''
       }];
-    
-    var resultObj= JSON.parse(result);
+
+    var resultObj = JSON.parse(result);
     var type = resultObj.Status;
 
     if (type == "-1") {
@@ -225,10 +225,16 @@ var Activity1018 = function (event) {
     } else if (type == "填寫電話") {
       data.Mobile = asc(msg);
       auroraLineBot.UpdateLineUserInfo(data);
-      replymsg[0].text = "完成囉！您的幸運號碼是:"+resultObj.SNO+" ，議程的最後將由周老師現場抽出1名幸運兒～敬請期待！千萬別錯過";
+      replymsg[0].text = "完成囉！您的幸運號碼是:" + resultObj.SNO + " ，議程的最後將由周老師現場抽出1名幸運兒～敬請期待！千萬別錯過 \n 想擁有專屬Line好友的好禮嗎？優質刊物《震旦月刊》一年份，陪伴您度過春夏秋冬～請輸入紙本月刊寄送地址";
     } else if (type == "完成") {
-      replymsg[0].text = "感謝您今日的參與，未來將不定期提供您人資議題相關最新訊息\n 以及價值創新講堂場次，精彩議程千萬別錯過～\n詳情洽https://www.aurora.com.tw/cloud/\n 若有任何問題請撥打客服專線：02-2725-1723";
+      data.Address = asc(msg);
+      auroraLineBot.UpdateLineUserInfo(data);
+      replymsg[0].text = "感謝您的填寫~從2017年12月起將收到為期一年份的《震旦月刊》";
     }
+    else if (type == "註冊月刊") {
+      replymsg[0].text ="";
+    }
+
     event.reply(replymsg);
   });
 }
