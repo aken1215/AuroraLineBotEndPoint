@@ -20,7 +20,7 @@ bot.on('follow', function (event) {
   var replymsg =
     [{
       'type': 'text',
-      'text': '歡迎參加【價值創新講堂－台中場】活動，今日將由人資專家周昌湘老師教您如何因應勞檢與一例一休變法！議程的最後還有周老師精彩的問答解析，以及抽大獎活動~想獲得【ASUS平板】?請輸入"1"'
+      'text': '歡迎加入震旦辦公雲Line@好友生活圈，本次將由人資大師周昌湘老師，分享最新一例一休趨勢與勞檢實戰策略。加入好友生活圈，現場可抽【ASUS 10吋商用平板(市價13,000元)】，讓您一手掌握最新消息！參與抽獎請輸入”1”。'
     }];
   event.reply(replymsg);
 });
@@ -30,6 +30,11 @@ bot.on('message', function (event) {
 
 
   if (event.message.type == 'text') {
+    var data = {
+      'LineID': event.source.userId,
+      'Content':event.message.text
+    }
+    auroraLineBot.PostConversation(data);
 
     Activity1018(event);
   }
@@ -199,6 +204,12 @@ var Activity1018 = function (event) {
     if (type == "-1") {
       replymsg =
         [
+          {
+            'type': 'image',
+            'originalContentUrl': 'https://aublob.blob.core.windows.net/appstore/1018Image1.jpg',
+            'previewImageUrl': 'https://aublob.blob.core.windows.net/appstore/1018Image1.jpg'
+          }
+          ,
           {
             'type': 'text',
             'text': '誰是幸運兒？請輸入姓名'
