@@ -242,7 +242,7 @@ var Activity1018 = function (event) {
             currentEvent.reply(replymsg);
         }
         else {
-          var response = JSON.parse(result.body.replace("model.", "")).ModelState.mobile[0];
+          var response = JSON.parse(result.body.replace("model.", "")).ModelState.Mobile[0];
           console.log(response);
           replymsg =
             [{
